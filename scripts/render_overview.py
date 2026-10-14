@@ -2,7 +2,7 @@
 """Render a README figure from public demo data and the licensed FlyBody mesh.
 
 Requires numpy and matplotlib. This is an explanatory figure, not a browser
-screenshot. Portfolio curves/activity are synthetic, not model predictions.
+screenshot. Portfolio weights/activity are synthetic, not model predictions.
 FlyBody geometry: Apache-2.0; MaleCNS connectivity: CC BY 4.0.
 """
 from pathlib import Path
@@ -50,7 +50,7 @@ def main():
     panel(.035, .115, .285, .735, '01', 'Embodied view', 'FlyBody geometry · explanatory motion')
     panel(.338, .435, .307, .415, '02', 'Connectivity & state', '384 nodes · 512 strongest edges shown')
     panel(.663, .435, .302, .415, '03', 'Portfolio allocation', 'Snapshot 76 / 120 · artificial targets')
-    panel(.338, .115, .627, .29, '04', 'Replay through time', '120 synthetic steps · normalized to 100')
+    panel(.338, .115, .627, .29, '04', 'Exposure through time', 'Synthetic stock and cash weights · 120 steps')
 
     # Orthographic projection of the existing body mesh; no anatomical inference.
     ax = fig.add_axes([.041, .235, .272, .48]); ax.set_axis_off()
@@ -109,17 +109,17 @@ def main():
     fig.text(.814,.459,'Assets A–G are fictional',ha='center',fontsize=9,color=MUTED)
 
     ax=fig.add_axes([.377,.177,.567,.118])
-    x=np.arange(121)
-    portfolio=np.r_[100,[f['equity']/demo['initialCapital']*100 for f in demo['frames']]]
-    baseline=np.r_[100,[f['baselineEquity']/demo['initialCapital']*100 for f in demo['frames']]]
-    ax.plot(x,portfolio,c=INDIGO,lw=2.25,label='Artificial allocation')
-    ax.plot(x,baseline,c=TEAL,lw=1.7,label='Fictional buy-and-hold')
-    ax.axhline(100,c='#cbd4e3',lw=.6,zorder=0)
-    ax.set_xticks([0,30,60,90,120]);ax.tick_params(labelsize=9,length=0,pad=5)
-    ax.set_xlim(0,120);ax.set_ylim(min(portfolio.min(),baseline.min())-.2,max(portfolio.max(),baseline.max())+.3)
-    ax.grid(axis='y',color='#e8ecf4',lw=.7)
+    x=np.arange(1,len(demo['frames'])+1)
+    stocks=np.asarray([sum(f['weights']) for f in demo['frames']])*100
+    cash=np.asarray([f['cashWeight'] for f in demo['frames']])*100
+    assert np.allclose(stocks+cash,100), 'Stock and cash weights must sum to 100%'
+    ax.stackplot(x,stocks,cash,colors=[INDIGO,'#d9e0ed'],labels=['Stocks','Cash'],step='post')
+    ax.set_xticks([1,30,60,90,120]);ax.tick_params(labelsize=9,length=0,pad=5)
+    ax.set_yticks([0,50,100],['0%','50%','100%'])
+    ax.set_xlim(1,120);ax.set_ylim(0,100)
+    ax.grid(axis='y',color='white',lw=.7,alpha=.55)
     for sp in ax.spines.values():sp.set_visible(False)
-    ax.legend(loc='upper left',bbox_to_anchor=(.29,1.56),ncols=2,frameon=False,fontsize=9,handlelength=2.5)
+    ax.legend(loc='upper right',bbox_to_anchor=(1,1.56),ncols=2,frameon=False,fontsize=9,handlelength=2)
     fig.text(.944,.137,'Step',ha='right',fontsize=9,color=MUTED)
     fig.text(.035,.061,'FlyAlloc · Visualization generated from the bundled synthetic demo.',fontsize=10,color=MUTED)
     fig.text(.965,.061,'FlyBody · Apache-2.0   /   MaleCNS · CC BY 4.0',fontsize=9,ha='right',color=MUTED)

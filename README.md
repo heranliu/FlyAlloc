@@ -8,9 +8,9 @@
 
 FlyAlloc explores how a neural policy constrained by fruit-fly connectivity can map market signals and portfolio state to asset allocations. It combines a stateful graph model with an interactive replay of portfolio weights, neural activity and returns.
 
-![FlyAlloc overview: body geometry, a connectivity graph, allocation weights and a replay curve](docs/assets/overview.png)
+![FlyAlloc overview: body geometry, a connectivity graph, allocation weights and exposure history](docs/assets/overview.png)
 
-*Overview generated from the public synthetic demo. Assets, activity and curves are illustrative; the connectivity is derived from MaleCNS. [Vector figure](docs/assets/overview.svg).*
+*Overview generated from the public synthetic demo. Assets, activity and exposure history are illustrative; the connectivity is derived from MaleCNS. [Vector figure](docs/assets/overview.svg).*
 
 ## Quick start
 
@@ -26,7 +26,9 @@ python3 serve.py start
 py -3 serve.py start
 ```
 
-Open the address printed in the terminal, normally **http://127.0.0.1:8080/**. The bundled demo runs locally with no external services. It uses fictional assets and synthetic values to demonstrate the interface; it does not run the research model. To replay research records, import an authorized local data bundle as described in the [running guide](docs/RUNNING.en.md).
+Open the address printed in the terminal, normally `http://127.0.0.1:8080/`.
+
+The bundled demo runs locally with no external services. It uses fictional assets and synthetic values to demonstrate the interface; it does not run the research model. To replay research records, import an authorized local data bundle as described in the [running guide](docs/RUNNING.en.md).
 
 ## How it works
 

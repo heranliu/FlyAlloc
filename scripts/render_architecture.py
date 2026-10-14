@@ -5,7 +5,6 @@ Run from any directory: python scripts/render_architecture.py
 Use --check to compare the committed assets without writing files.
 """
 import argparse
-import hashlib
 import io
 import json
 from pathlib import Path
@@ -168,8 +167,7 @@ def main():
             path.write_bytes(content)
     print(json.dumps({'status': 'passed' if args.check else 'generated', 'logical_size': [WIDTH, HEIGHT],
                       'png_size': [3000, 1280], 'labels_with_bounds_checked': labels,
-                      'svg_text': 'paths', 'matplotlib': matplotlib.__version__,
-                      'sha256': {name: hashlib.sha256(value).hexdigest() for name, value in payloads.items()}}))
+                      'svg_text': 'paths', 'matplotlib': matplotlib.__version__}))
 
 
 if __name__ == '__main__':

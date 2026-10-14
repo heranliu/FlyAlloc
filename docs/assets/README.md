@@ -4,7 +4,7 @@ These are reproducible explanatory figures, not browser screenshots. The overvie
 
 | Figure | Inputs and meaning |
 | --- | --- |
-| `overview.png` / `overview.svg` | The packaged FlyBody mesh, MaleCNS-derived connectivity and the bundled synthetic demo. The plotted allocations, activity and curves are artificial examples, not model predictions. / 果蝇几何、连接图和公开合成演示；配置、活动及曲线为人工示例。 |
+| `overview.png` / `overview.svg` | The packaged FlyBody mesh, MaleCNS-derived connectivity and the bundled synthetic demo. The plotted allocations, activity and exposure history are artificial examples, not model predictions or a performance comparison. / 果蝇几何、连接图和公开合成演示；配置、活动及仓位变化为人工示例，不比较收益表现。 |
 | `architecture.png` / `architecture.svg` | A schematic of the implemented model and its feedback path. It does not depict anatomical positions or report performance. / 模型结构与反馈关系示意，不表示解剖位置或实验表现。 |
 
 ## Regenerate / 重新生成

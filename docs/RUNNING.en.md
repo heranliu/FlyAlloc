@@ -44,7 +44,7 @@ py -3 scripts/local_data.py import "C:\data\FlyAlloc-local-data.zip"
 py -3 scripts/local_data.py check
 ```
 
-Before writing files, the import tool checks the complete file manifest, sizes, and SHA-256 hashes. It does not execute files inside the ZIP, download data, or overwrite existing files with different contents. After a successful import, refresh the page to load the research records. The synthetic demo is used only when the research file is absent and returns HTTP 404. A damaged research file or a server error produces an error instead of silently switching data sources.
+Before writing files, the import tool checks the file manifest, sizes, and content integrity. It does not execute files inside the ZIP, download data, or overwrite existing files with different contents. After a successful import, refresh the page to load the research records. The synthetic demo is used only when the research file is absent and returns HTTP 404. A damaged research file or a server error produces an error instead of silently switching data sources.
 
 A working copy with complete local research data can export a backup:
 
@@ -81,7 +81,7 @@ py -3.12 -m venv .venv
 
 Inference runs on the CPU and does not require CUDA. Installing dependencies requires an internet connection; afterward, inference uses only local models and data. Output goes to `backend/results/` by default, including replay ledgers, neural states, and `verification.json`. Use `--output` to choose another directory.
 
-Verification covers model and input file hashes, decision records, orders, an independent NumPy ledger, and neural states from both random seeds. Discrete fields must match. Floating-point comparisons use an absolute tolerance of `1e-8` and a relative tolerance of `1e-9`; exact equality is also recorded.
+Verification covers the integrity of model and input files, decision records, orders, an independent NumPy ledger, and neural states from both random seeds. Discrete fields must match. Floating-point comparisons use an absolute tolerance of `1e-8` and a relative tolerance of `1e-9`; exact equality is also recorded.
 
 ## 4. Checks and release packaging
 
@@ -96,7 +96,7 @@ python3 scripts/check_release.py
 
 `check_release.py` requires a standalone Git working copy. If you downloaded a source ZIP, run `npm test` instead.
 
-`npm test` uses only the public synthetic demo. It covers themes, date selection and playback, chart values, scene initialization, data fallback, and error handling. `test:research` checks the original values and provenance fingerprints of the research export; it does not run in public CI.
+`npm test` uses only the public synthetic demo. It covers themes, date selection and playback, chart values, scene initialization, data fallback, and error handling. `test:research` checks the original values and provenance consistency of the research export; it does not run in public CI.
 
 To prepare a public ZIP, first commit the reviewed files to this repository, then run:
 

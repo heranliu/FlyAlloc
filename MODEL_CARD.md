@@ -29,13 +29,8 @@
 
 ## 检查点与许可
 
-以下文件在本次发布整理中保持字节不变：
-
-| 文件 | SHA-256 |
-| --- | --- |
-| `backend/models/seed17.npz` | `17a64c70773587329e3e55dbab602ea8f0f1b346baace5120889b50a35267315` |
-| `backend/models/seed29.npz` | `9703e5fa66beaee01081a44c332980634c48935cadf02d047b2c23f178b43549` |
+检查点 `backend/models/seed17.npz` 与 `backend/models/seed29.npz` 在本次发布整理中原样保留，并由发布检查核对文件完整性。
 
 原创参数采用根目录MIT许可；检查点内的连接组拓扑与基矩阵（`edge_row`、`edge_col`、`edge_base`）保留MaleCNS的CC BY 4.0许可及归属。两类内容不得合并解释为第三方数据已改用MIT。详见 [第三方声明](THIRD_PARTY_NOTICES.md)。
 
-重放会校验模型、输入和参考文件的SHA-256，并对账本、订单与神经状态进行数值验证；具体命令见 [运行说明](docs/RUNNING.md)。
+重放会检查模型、输入和参考文件的完整性，并对账本、订单与神经状态进行数值验证；具体命令见 [运行说明](docs/RUNNING.md)。

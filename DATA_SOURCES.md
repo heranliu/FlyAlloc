@@ -24,7 +24,7 @@
 
 新浪因子来源为 `finance.sina.com.cn/realstock/company/.../hfq.js`。[新浪财经用户协议](https://finance.sina.com.cn/roll/2021-05-12/doc-ikmxzfmm2033220.shtml)（页面标注 2020-09-23 生效）对内容复制、传播及站外整理展示作出限制；本次未找到因子接口单独授予开放再分发权的文件。该结论不推定所有具体用途的法律性质，仓库按未确认再分发授权处理。
 
-本地数据包保留每份请求的来源、获取时间和 SHA-256。公开的 `backend/provenance/private-data-manifest.json` 仅包含相对路径、字节数与内容摘要，不含报价本身。导入工具只校验和复制本地文件，不访问行情服务，也不授予数据使用或分发权。
+本地数据包保留每份请求的来源、获取时间和完整性校验记录。公开的 `backend/provenance/private-data-manifest.json` 仅包含文件清单及完整性校验信息，不含报价本身。导入工具只校验和复制本地文件，不访问行情服务，也不授予数据使用或分发权。
 
 ## 发布边界
 

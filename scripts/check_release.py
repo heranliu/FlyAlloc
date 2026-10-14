@@ -9,6 +9,7 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
+MODEL_MANIFEST = 'backend/provenance/asset_manifest.json'
 PRIVATE_PREFIXES = ('backend/data/', 'backend/reference/', 'backend/results/', '.runtime/',
                     '.venv/', 'validation/', 'website/validation/', 'outputs/', 'work/')
 PRIVATE_FILES = {'website/dist/static-data.json', 'website/dist/static-raw.json',
@@ -18,7 +19,7 @@ REQUIRED = {'README.md', 'LICENSE', 'MODEL_CARD.md', 'DATA_SOURCES.md', 'THIRD_P
             'website/dist/demo-graph.json', 'website/dist/vendor/THREE-LICENSE',
             'website/dist/assets/FONT-LICENSE', 'website/dist/assets/MONO-FONT-LICENSE',
             'website/dist/assets/flybody-LICENSE', 'backend/models/seed17.npz',
-            'backend/models/seed29.npz'}
+            'backend/models/seed29.npz', MODEL_MANIFEST}
 
 
 def public_paths():
@@ -27,6 +28,21 @@ def public_paths():
         raise ValueError('Run this check in the independent FlyAlloc Git repository.')
     names = subprocess.check_output(['git', 'ls-files', '-z'], cwd=ROOT).decode().split('\0')
     return [name for name in names if name]
+
+
+def model_integrity_problems():
+    manifest = json.loads((ROOT / MODEL_MANIFEST).read_text())
+    problems = []
+    for seed in (17, 29):
+        name = f'models/seed{seed}.npz'
+        entries = [item for item in manifest.get('files', []) if item.get('file') == name]
+        if len(entries) != 1 or not re.fullmatch(r'[0-9a-f]{64}', entries[0].get('sha256', '')):
+            problems.append('Missing or invalid model integrity record: ' + name)
+            continue
+        digest = hashlib.sha256((ROOT / 'backend' / name).read_bytes()).hexdigest()
+        if digest != entries[0]['sha256']:
+            problems.append('Model integrity mismatch: ' + name)
+    return problems
 
 
 def main():
@@ -87,11 +103,7 @@ def main():
             and demo.get('modelInference') is False and demo.get('strategy', {}).get('directNeural') is False
             and all(re.fullmatch(r'DEMO_[A-G]', item['symbol']) for item in demo['symbols'])):
         problems.append('Synthetic demo is not clearly identified')
-    model_card = (ROOT / 'MODEL_CARD.md').read_text()
-    for seed in (17, 29):
-        digest = hashlib.sha256((ROOT / f'backend/models/seed{seed}.npz').read_bytes()).hexdigest()
-        if digest not in model_card:
-            problems.append('Model card hash mismatch: seed ' + str(seed))
+    problems.extend(model_integrity_problems())
     print(json.dumps({'status': 'failed' if problems else 'passed', 'public_files': len(names),
                       'public_bytes': total, 'private_paths_excluded': len(forbidden),
                       'problems': problems}, ensure_ascii=False, indent=2))
