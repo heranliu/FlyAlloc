@@ -37,8 +37,7 @@ def main():
     fig = plt.figure(figsize=(16, 8.8), facecolor=BG)
     fig.text(.035, .945, 'A window into portfolio decisions', fontsize=26, weight='bold', color=INK)
     fig.text(.035, .907, 'Connectivity, state and allocation on a shared timeline', fontsize=13, color=MUTED)
-    fig.text(.965, .945, 'PUBLIC DEMO', ha='right', fontsize=11, weight='bold', color=INDIGO)
-    fig.text(.965, .912, 'Synthetic values · not model outputs', ha='right', fontsize=11, color=MUTED)
+    fig.text(.965, .945, 'FlyAlloc', ha='right', fontsize=17, weight='bold', color=INDIGO)
 
     def panel(x, y, w, h, number, title, subtitle):
         fig.add_artist(FancyBboxPatch((x, y), w, h, boxstyle='round,pad=0.006,rounding_size=.012',
@@ -47,10 +46,10 @@ def main():
         fig.text(x+.049, y+h-.042, title, fontsize=14, color=INK, weight='bold')
         fig.text(x+.015, y+h-.075, subtitle, fontsize=10, color=MUTED)
 
-    panel(.035, .115, .285, .735, '01', 'Embodied view', 'FlyBody geometry · explanatory motion')
+    panel(.035, .115, .285, .735, '01', 'Fly model', 'FlyBody geometry')
     panel(.338, .435, .307, .415, '02', 'Connectivity & state', '384 nodes · 512 strongest edges shown')
-    panel(.663, .435, .302, .415, '03', 'Portfolio allocation', 'Snapshot 76 / 120 · artificial targets')
-    panel(.338, .115, .627, .29, '04', 'Exposure through time', 'Synthetic stock and cash weights · 120 steps')
+    panel(.663, .435, .302, .415, '03', 'Portfolio allocation', 'Snapshot 76 / 120')
+    panel(.338, .115, .627, .29, '04', 'Exposure through time', 'Stock and cash weights · 120 steps')
 
     # Orthographic projection of the existing body mesh; no anatomical inference.
     ax = fig.add_axes([.041, .235, .272, .48]); ax.set_axis_off()
@@ -81,8 +80,6 @@ def main():
     xy=tri_all.reshape(-1,2); low=xy.min(0); high=xy.max(0); pad=(high-low)*.05
     ax.set_xlim(low[0]-pad[0], high[0]+pad[0]); ax.set_ylim(low[1]-pad[1], high[1]+pad[1]); ax.set_aspect('equal')
     fig.text(.1775, .203, 'Drosophila melanogaster', ha='center', fontsize=12, style='italic', color=INK)
-    fig.text(.1775, .171, 'Body animation explains allocation.', ha='center', fontsize=10, color=MUTED)
-    fig.text(.1775, .145, 'It is not a simulated biological action.', ha='center', fontsize=10, color=MUTED)
 
     ax=fig.add_axes([.351,.475,.281,.268]); ax.set_axis_off(); ax.set_aspect('equal')
     n=len(graph['nodes']); i=np.arange(n); y=1-2*(i+.5)/n; r=np.sqrt(1-y*y); angle=i*2.399963
@@ -96,7 +93,6 @@ def main():
     cmap=LinearSegmentedColormap.from_list('activity',['#c4cee1','#6568e5','#16bfa9'])
     ax.scatter(coords[:,0],coords[:,1],c=values,cmap=cmap,s=6+values*15,lw=.35,edgecolors='white',zorder=3)
     ax.set_xlim(-1.2,1.2);ax.set_ylim(-1.05,1.05)
-    fig.text(.4915,.459,'Schematic layout · artificial activity',ha='center',fontsize=9,color=MUTED)
 
     ax=fig.add_axes([.706,.487,.226,.245])
     weights=np.r_[frame['weights'],frame['cashWeight']]*100
@@ -106,7 +102,6 @@ def main():
     ax.set_xticks([]);ax.tick_params(axis='y',length=0,pad=8)
     for yy,v in zip(ys,weights):ax.text(v+.65,yy,f'{v:.1f}%',va='center',fontsize=9,color=INK)
     for sp in ax.spines.values():sp.set_visible(False)
-    fig.text(.814,.459,'Assets A–G are fictional',ha='center',fontsize=9,color=MUTED)
 
     ax=fig.add_axes([.377,.177,.567,.118])
     x=np.arange(1,len(demo['frames'])+1)
@@ -121,7 +116,7 @@ def main():
     for sp in ax.spines.values():sp.set_visible(False)
     ax.legend(loc='upper right',bbox_to_anchor=(1,1.56),ncols=2,frameon=False,fontsize=9,handlelength=2)
     fig.text(.944,.137,'Step',ha='right',fontsize=9,color=MUTED)
-    fig.text(.035,.061,'FlyAlloc · Visualization generated from the bundled synthetic demo.',fontsize=10,color=MUTED)
+    fig.text(.035,.061,'Synthetic demo data',fontsize=10,color=MUTED)
     fig.text(.965,.061,'FlyBody · Apache-2.0   /   MaleCNS · CC BY 4.0',fontsize=9,ha='right',color=MUTED)
     OUT.mkdir(parents=True, exist_ok=True)
     for ext in ('svg','png'):

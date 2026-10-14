@@ -1,11 +1,11 @@
 # README figures / README 图示
 
-These are reproducible explanatory figures, not browser screenshots. The overview reads only public files; it does not read a local research bundle. 图示仅使用公开资源生成，不读取本地研究数据包。
+Reproducible figures generated from the bundled public assets. 图示使用随包公开资源生成。
 
 | Figure | Inputs and meaning |
 | --- | --- |
-| `overview.png` / `overview.svg` | The packaged FlyBody mesh, MaleCNS-derived connectivity and the bundled synthetic demo. The plotted allocations, activity and exposure history are artificial examples, not model predictions or a performance comparison. / 果蝇几何、连接图和公开合成演示；配置、活动及仓位变化为人工示例，不比较收益表现。 |
-| `architecture.png` / `architecture.svg` | A schematic of the implemented model and its feedback path. It does not depict anatomical positions or report performance. / 模型结构与反馈关系示意，不表示解剖位置或实验表现。 |
+| `overview.png` / `overview.svg` | FlyBody geometry, MaleCNS-derived connectivity and synthetic demo allocations and activity. / FlyBody 几何、MaleCNS 派生连接图及合成演示的配置与活动。 |
+| `architecture.png` / `architecture.svg` | The implemented model and its feedback path. / 模型结构与反馈关系。 |
 
 ## Regenerate / 重新生成
 
@@ -29,5 +29,3 @@ The PNG files are suitable for Markdown previews; SVG files retain editable vect
 - **MaleCNS connectivity** in the overview: CC BY 4.0. Attribution: FlyEM / HHMI Janelia, University of Cambridge, MRC Laboratory of Molecular Biology, Google Research. The figure uses a schematic spherical layout, draws the 512 strongest connections and colors nodes with synthetic activity. [Data source and modifications](../../DATA_SOURCES.md); [license](../../LICENSES/CC-BY-4.0.txt).
 - **Figure lettering**: DejaVu Sans supplied by Matplotlib 3.9.2; Bitstream Vera / Arev copyright notices and DejaVu public-domain changes are preserved in [DejaVu font notices](../../LICENSES/DejaVu-fonts.txt). SVG lettering is stored as glyph outlines. / 图中文字使用 DejaVu Sans，SVG 保留字形轮廓及相应许可声明。
 - **Original plotting code, layout and synthetic values**: MIT. Original architecture figure: MIT. The overview combines these with the separately licensed components above; its reuse must retain their notices.
-
-No screenshot or visual asset from another project's README is copied here. 本目录未复制参考项目 README 中的截图或图像。
