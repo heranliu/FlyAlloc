@@ -18,3 +18,9 @@
 - **Three.js**：保留原版权头、完整 MIT 许可及随包模块。
 
 依赖包 NumPy、pandas、SciPy 与 PyTorch 由用户按 `backend/requirements.txt` 安装，未将其二进制分发包纳入本仓库；各自继续适用上游许可。
+
+## Documentation figures / 文档图示
+
+`docs/assets/overview.png` 与 `overview.svg` 包含 FlyBody 几何的二维投影及 MaleCNS 派生连接图，分别继续适用 Apache-2.0 与 CC BY 4.0；原创排版、绘图代码和合成数值采用 MIT。具体来源和变换见 [图示来源](docs/assets/README.md)。`architecture.png` 与 `architecture.svg` 是本项目原创的模型结构示意图，采用 MIT。
+
+图示文字使用 Matplotlib 3.9.2 随附的 DejaVu Sans，SVG 中保存为字形轮廓；Bitstream Vera / Arev 版权与 DejaVu 声明见 [DejaVu 字体许可](LICENSES/DejaVu-fonts.txt)。

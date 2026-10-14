@@ -1,5 +1,7 @@
 # 运行说明
 
+简体中文 | [English](RUNNING.en.md)
+
 所有命令都在项目根目录执行。网页资源已经构建，无需 npm install、前端构建工具或在线 API。
 
 ## 1. 启动网页
@@ -22,7 +24,7 @@ python3 serve.py serve --port 8080
 
 Windows 将以上 `python3` 换成 `py -3`。macOS 可双击 `启动网站.command`，Windows 可双击 `start.bat`。Linux 直接使用命令行。
 
-如果端口被占用，后台启动会尝试随后九个端口，以终端显示地址为准。电脑重启后需要再次启动。运行日志在 `.runtime/server.log`，该目录被 Git 忽略。默认黑色主题；右上角可切换白色，浏览器会保存选择。
+如果端口被占用，后台启动会尝试随后九个端口，以终端显示地址为准。电脑重启后需要再次启动。运行日志在 `.runtime/server.log`，该目录被 Git 忽略。
 
 ## 2. 公开演示与研究记录
 

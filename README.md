@@ -1,21 +1,20 @@
 # FlyAlloc
 
-**果蝇连接组启发的资产配置与神经活动可视化实验。**
+**Connectome-inspired asset allocation with interactive neural-state visualization.**
 
-Connectome-inspired asset allocation, made visible.
+**English** · [简体中文](README.zh-CN.md)
 
-FlyAlloc 将市场特征、账户状态和持仓输入果蝇连接组启发的神经网络，输出七只股票的配置比例与现金仓位。交互网页把组合决策、网络活动和收益曲线放在同一条时间轴上，帮助观察模型如何响应不同市场状态。
+[Quick start](#quick-start) · [How it works](#how-it-works) · [Documentation](#documentation)
 
-## 可以做什么
+FlyAlloc explores how a neural policy constrained by fruit-fly connectivity can map market signals and portfolio state to asset allocations. It combines a stateful graph model with an interactive replay of portfolio weights, neural activity and returns.
 
-- **观察决策**：按日期回放持仓、现金比例与调仓记录。
-- **查看网络活动**：旋转连接组示意图，观察聚合节点的状态变化。
-- **比较表现**：选择区间，查看收益、回撤及买入持有基准。
-- **本地运行**：黑白主题切换，默认黑色；字体、三维素材和演示数据均随仓库提供，无需 API 密钥或券商账户。
+![FlyAlloc overview: body geometry, a connectivity graph, allocation weights and a replay curve](docs/assets/overview.png)
 
-## 快速开始
+*Overview generated from the public synthetic demo. Assets, activity and curves are illustrative; the connectivity is derived from MaleCNS. [Vector figure](docs/assets/overview.svg).*
 
-下载并解压仓库，在项目根目录打开终端。网页只需要 **Python 3.10 或更新版本**。
+## Quick start
+
+Download the source and open a terminal in the project directory. The web viewer requires **Python 3.10+** and no package installation.
 
 ```bash
 # macOS / Linux
@@ -27,62 +26,29 @@ python3 serve.py start
 py -3 serve.py start
 ```
 
-打开终端显示的地址，默认是 **http://127.0.0.1:8080/**。也可以在 macOS 双击 `启动网站.command`，在 Windows 双击 `start.bat`。端口被占用时，启动器会选择附近的空闲端口。
+Open the address printed in the terminal, normally **http://127.0.0.1:8080/**. The bundled demo runs locally with no external services. It uses fictional assets and synthetic values to demonstrate the interface; it does not run the research model. To replay research records, import an authorized local data bundle as described in the [running guide](docs/RUNNING.en.md).
 
-公开仓库默认加载**合成演示数据**：七个虚构资产、人工生成的收益和活动，用于体验界面，不代表模型推理结果。连接组结构来自已署名的 MaleCNS 数据。导入经授权的本地研究数据后，网页自动切换为研究记录；操作见 [运行说明](docs/RUNNING.md)。
+## How it works
 
-```bash
-# 查看服务状态 / 停止服务
-python3 serve.py status
-python3 serve.py stop
-```
+![FlyAlloc model architecture: separate graph-memory policies, logit averaging and portfolio feedback](docs/assets/architecture.png)
 
-## 模型如何工作
+The model routes **308 market features, 4 account features and 8 holding weights** into a graph with **384 aggregated nodes and 9,377 edges**. Three propagation steps feed three memory timescales, producing a 1,152-dimensional state for each policy. Two independently parameterized policies average their output logits; a softmax allocates across seven stocks and a sigmoid sets total equity exposure, leaving the remainder in cash.
 
-```mermaid
-flowchart LR
-    A[市场特征 · 账户状态 · 持仓] --> B[稀疏输入映射]
-    B --> C[384 节点连接组\n9,377 条连接 · 三次传播]
-    C --> D[三种时间尺度的记忆\n1,152 维状态]
-    D --> E[双随机种子模型集成]
-    E --> F[股票间分配 · 总股票仓位]
-    F --> G[按交易日更新的模拟账本]
-    G --> H[组合 · 神经活动 · 收益可视化]
-    G --> A
-```
+The research configuration rebalances every five observed trading sessions, with close-of-session decisions, execution at the next session’s adjusted opening-price proxy and a 5bp cost per traded side. The viewer synchronizes allocations, activity and return curves to the recorded decision timeline. Body motion is illustrative, and graph positions are schematic. See the [model card](MODEL_CARD.md) for checkpoints, evaluation settings and interpretation.
 
-神经网络采用连接组约束的传播结构，输出股票之间的分配和总股票仓位，剩余部分保留为现金。研究设置每五个交易日调仓，收盘后决策、次日开盘按复权价格代理执行，每边交易成本为 5bp。
+## Documentation
 
-网页回放保存的决策与状态；身体运动和脑图空间布局是解释性示意，不对应真实果蝇行为或精确解剖坐标。模型结构、检查点和结果口径见 [模型卡](MODEL_CARD.md)。
+| Guide | Contents |
+| --- | --- |
+| [Running the project](docs/RUNNING.en.md) | Startup, local data, CPU replay and verification |
+| [Model card](MODEL_CARD.md) · 中文 | Architecture, checkpoints and research results |
+| [Data sources](DATA_SOURCES.md) · 中文 | Provenance, permissions and distribution scope |
+| [Figure sources](docs/assets/README.md) | Reproduce the figures and inspect their inputs |
 
-## 项目结构
+For development checks, install **Node.js 22+** and run `npm test`. No npm dependencies are required. The public tests use only bundled demo data.
 
-```text
-backend/          模型、连接组、特征计算与推理重放
-website/dist/     网页、合成演示、三维与字体素材
-website/tests/    界面和研究数据校验
-scripts/          演示生成、本地数据导入与发布检查
-docs/             运行步骤与发布说明
-LICENSES/         数据许可全文
-```
+## Data and license
 
-## 验证
+Original code and learned parameters are licensed under [MIT](LICENSE). MaleCNS-derived connectivity, including the connectivity buffers in model checkpoints, remains **CC BY 4.0**. FlyBody assets, Three.js and fonts retain their respective licenses; see [third-party notices](THIRD_PARTY_NOTICES.md).
 
-界面检查需要 **Node.js 22+**，不需要安装 npm 依赖：
-
-```bash
-npm test
-python3 scripts/check_release.py
-```
-
-发布清单检查需要带 `.git` 的独立 Git 工作副本；源码 ZIP 用户可直接运行 `npm test`。
-
-研究数据导入、模型推理和账本校验命令见 [运行说明](docs/RUNNING.md)。测试覆盖数据选择、主题切换、日期回放、图表数值与软件渲染路径；函数级测试不等同于浏览器像素检查。
-
-## 许可与数据
-
-原创代码及原创模型参数采用 [MIT](LICENSE)。连接组与检查点内嵌的连接组拓扑/基矩阵采用 **CC BY 4.0**，FlyBody 素材采用 **Apache-2.0**，Three.js 采用 **MIT**，字体采用 **OFL 1.1**。具体文件与署名见 [第三方声明](THIRD_PARTY_NOTICES.md)。
-
-真实行情、复权因子和含价格的研究账本未纳入公开仓库；其再分发授权尚未确认。公开演示数据由本项目脚本合成。来源和核查范围见 [数据来源与授权](DATA_SOURCES.md)。
-
-这是资产配置研究与可视化实验。历史模拟不等同于真实账户表现，也不构成投资建议。
+The public repository includes synthetic demo data. Real market data, adjustment factors and price-bearing research records remain local because redistribution permission has not been established. Historical simulations are research artifacts, not evidence of future investment performance.
