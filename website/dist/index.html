@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="FlyAlloc：果蝇神经网络驱动的 A 股资产配置实验。资产配置可视化与明确标注的合成界面演示。">
+  <title>FlyAlloc · 资产配置实验</title>
+  <script src="theme.js"></script>
+  <link rel="icon" href="favicon.svg">
+  <link rel="stylesheet" href="challenge.css">
+</head>
+<body>
+  <main>
+    <header class="app-header">
+      <div class="project-heading">
+        <div class="project-name"><h1>FlyAlloc</h1></div>
+        <p>果蝇神经网络驱动的 A 股资产配置实验</p>
+      </div>
+      <div class="theme-switch" role="group" aria-label="页面主题">
+        <button type="button" data-theme-choice="dark" aria-pressed="true">黑色</button>
+        <button type="button" data-theme-choice="light" aria-pressed="false">白色</button>
+      </div>
+    </header>
+
+    <p id="data-mode-banner" class="data-mode-banner" role="status" hidden></p>
+
+    <section class="overview" aria-label="模拟区间">
+      <div class="scoreboard">
+        <span class="eyebrow" id="score-eyebrow-text">区间收益</span>
+        <div class="score pending-score" id="fly-return">加载中</div>
+        <span id="period-label" class="period-label">—</span>
+      </div>
+      <form id="interval-form" class="interval-form">
+        <label>开始日期<input type="date" id="interval-start" required disabled></label>
+        <label>结束日期<input type="date" id="interval-end" required disabled></label>
+        <button type="submit" id="start-trading" class="primary-button" disabled>应用区间</button>
+        <p id="interval-feedback" class="feedback" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <section class="playback" aria-label="记录回放">
+      <button type="button" id="play-button" class="play-button" disabled aria-label="播放" aria-pressed="false">播放</button>
+      <div class="timeline-block">
+        <div class="timeline-head"><span>决策时间轴</span><span id="playback-date">—</span></div>
+        <input type="range" id="timeline" min="0" max="0" value="0" disabled aria-label="选择记录日期">
+        <div class="timeline-ticks"><span id="start-date">—</span><span id="end-date">—</span></div>
+      </div>
+      <label class="date-picker">决策日期<input id="replay-date" type="date" disabled></label>
+      <select id="play-speed" aria-label="播放速度"><option value="1400">1×</option><option value="650">2×</option><option value="200">5×</option></select>
+      <button type="button" id="next-step" disabled aria-label="下一个决策日">下一日</button>
+      <p id="date-feedback" class="feedback" aria-live="polite"></p>
+    </section>
+
+    <section class="experience" aria-label="配置与神经活动">
+      <div class="body-column">
+        <section class="arena card">
+          <div class="panel-header">
+            <h2>组合决策</h2>
+            <div class="stage-actions">
+              <button type="button" id="stage-play" class="stage-play" disabled aria-label="播放" aria-pressed="false">播放</button>
+              <button type="button" class="reset-camera" id="reset-camera" aria-label="重置模型视角" title="重置模型视角">↺</button>
+            </div>
+          </div>
+          <div id="scene">
+            <canvas id="fly-canvas" aria-label="可旋转的果蝇模型与配置示意"></canvas>
+            <div id="stock-stations"></div>
+            <div class="scene-loading" id="scene-loading"><span class="spinner"></span><strong>载入场景与记录</strong></div>
+            <div class="scene-error" id="scene-error" role="status" hidden></div>
+            <div class="stage-caption"><strong id="decision-headline">等待决策记录</strong><p id="decision-short">—</p></div>
+          </div>
+          <div class="arena-bottom">拖动旋转 · 滚轮缩放</div>
+        </section>
+
+        <section class="decision-card card" aria-label="模拟配置">
+          <div class="allocation-meta"><span id="allocation-context">模拟配置</span><span id="step-number">— / —</span></div>
+          <div class="selected-day"><strong id="decision-date">—</strong><span id="decision-kind">—</span></div>
+          <div class="allocation-heading"><h2>资产权重</h2><span id="choice-count">— 只</span></div>
+          <div id="allocation-list" class="allocation-list"><p class="empty">等待配置记录</p></div>
+          <div class="cash-row"><span id="cash-label">现金比例</span><strong id="cash-weight">—</strong></div>
+        </section>
+      </div>
+
+      <div class="analysis-column">
+        <section class="brain-panel card">
+          <div class="panel-header"><h2 id="neural-title">活动展示</h2><button type="button" id="reset-brain" class="reset-camera" aria-label="重置网络视角" title="重置网络视角">↺</button></div>
+          <div id="brain-scene"><canvas id="brain-canvas" aria-label="可旋转的组合神经状态，布局为示意"></canvas><div id="brain-error" class="scene-error" role="status" hidden></div></div>
+          <div class="neural-meter"><span id="state-date">—</span><div class="activity-scale" aria-label="神经活动从低到高"><span>低</span><i class="color-ramp"></i><span>高</span></div></div>
+        </section>
+
+        <section class="equity-card card">
+          <div class="equity-heading"><h2 id="curve-title">收益与回撤</h2><span id="initial-capital">区间累计收益</span><div class="chart-tabs" role="group" aria-label="图表类型"><button type="button" class="active" data-chart="equity">收益</button><button type="button" data-chart="drawdown">回撤</button></div></div>
+          <div class="curve-legend"><span><i></i><span id="strategy-label">配置</span></span><span><i></i><span id="baseline-label">参照</span></span><span id="chart-period">—</span></div>
+          <div class="chart-container"><canvas id="equity-chart" aria-label="配置与参照曲线"></canvas></div>
+          <div class="small-metrics"><div><span id="baseline-metric-label">参照变化</span><strong id="baseline-return">—</strong></div><div><span id="drawdown-label">回撤</span><strong id="max-drawdown">—</strong></div><div><span id="exposure-label">资产占比</span><strong id="mean-exposure">—</strong></div></div>
+        </section>
+      </div>
+    </section>
+
+    <details class="methods">
+      <summary>方法与数据</summary>
+      <div class="methods-content">
+        <p id="method-model">正在读取数据来源。</p>
+        <p id="method-accounting">加载后显示相应记账口径。</p>
+        <p id="method-scope">界面演示或历史模拟均不代表未来表现。</p>
+        <a id="download-run" class="download-link" href="demo-data.json" download>下载演示记录 · JSON ↗</a>
+        <p id="graph-facts" class="asset-credit"></p>
+        <div class="asset-credit" id="asset-credit">来源与许可证加载中</div>
+      </div>
+    </details>
+    <footer id="data-footer">FlyAlloc · Allocation visualization</footer>
+  </main>
+  <script type="module" src="challenge.js"></script>
+</body>
+</html>

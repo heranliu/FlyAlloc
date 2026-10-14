@@ -1,0 +1,40 @@
+{
+  "title": "FlyAlloc research universe",
+  "basket": [
+    {
+      "symbol": "sh600519",
+      "name": "贵州茅台",
+      "sector": "消费"
+    },
+    {
+      "symbol": "sz000063",
+      "name": "中兴通讯",
+      "sector": "通信科技"
+    },
+    {
+      "symbol": "sz300750",
+      "name": "宁德时代",
+      "sector": "新能源电池"
+    },
+    {
+      "symbol": "sz002594",
+      "name": "比亚迪",
+      "sector": "汽车"
+    },
+    {
+      "symbol": "sh600036",
+      "name": "招商银行",
+      "sector": "银行"
+    },
+    {
+      "symbol": "sh601899",
+      "name": "紫金矿业",
+      "sector": "资源"
+    },
+    {
+      "symbol": "sh600900",
+      "name": "长江电力",
+      "sector": "公用事业"
+    }
+  ]
+}

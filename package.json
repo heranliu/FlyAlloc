@@ -1,0 +1,11 @@
+{
+  "name": "flyalloc",
+  "private": true,
+  "description": "Connectome-inspired asset allocation with interactive neural-state visualization",
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "test": "node website/tests/check-interface.mjs",
+    "test:research": "node website/tests/check-research.mjs"
+  }
+}

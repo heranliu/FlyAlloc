@@ -1,0 +1,22 @@
+{
+  "dataset": "MaleCNS v1.0",
+  "genuine_connectivity": true,
+  "layout": null,
+  "layout_note": "No synthetic coordinates represented as anatomy.",
+  "selection": "384 largest traced cell-type/consensus-transmitter groups by neuron count, lexical tie break; no market inputs.",
+  "direction": "matrix[target, source]",
+  "normalization": "Top 32 incoming aggregate counts per target; signed outgoing transmitter convention; each nonzero absolute row sum scaled to 0.9.",
+  "sign_assumption": "Acetylcholine +1; GABA, glutamate, histamine -1. Engineered convention; receptor-specific sign and neuromodulatory physiology are not modeled.",
+  "excluded": "Untraced, untyped, unclear transmitter, and modulatory transmitter bodies; groups outside population-based top384.",
+  "source_neurons": 113337,
+  "source_edge_rows": 151856684,
+  "source_synapses": 311833243,
+  "within_selected_edge_rows": 10614864,
+  "within_selected_synapses": 39524353,
+  "retained_synapses": 37375974,
+  "retained_edges": 9377,
+  "seconds": 7.333341686999972,
+  "license": "CC-BY-4.0",
+  "attribution": "FlyEM (HHMI Janelia), University of Cambridge, MRC Laboratory of Molecular Biology, Google Research",
+  "source": "https://male-cns.janelia.org/download/"
+}

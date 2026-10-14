@@ -1,0 +1,19 @@
+FlyAlloc attribution
+
+Connectome: MaleCNS v1.0, CC BY 4.0.
+FlyEM / HHMI Janelia Research Campus, University of Cambridge,
+MRC Laboratory of Molecular Biology, Google Research.
+Source: https://male-cns.janelia.org/download/
+License file: ../../../LICENSES/CC-BY-4.0.txt
+License URL: https://creativecommons.org/licenses/by/4.0/
+Derived 384-node topology, 9,377 edges and normalization are described in ../graph/metadata.json.
+Checkpoint connectivity buffers retain this attribution and license.
+
+Original FlyAlloc code and learned model parameters: MIT; see project LICENSE.
+Market data and adjustment factors: redistribution permission not confirmed;
+local research files are excluded from the public repository and public ZIP.
+See project DATA_SOURCES.md and THIRD_PARTY_NOTICES.md for exact scope.
+
+asset_manifest.json identifies replay assets by relative path and SHA-256.
+private-data-manifest.json identifies required local-only input/reference files.
+No original archive or machine-specific path is needed at runtime.

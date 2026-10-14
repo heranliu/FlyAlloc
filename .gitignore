@@ -1,0 +1,20 @@
+# Private market data and price-bearing research records
+/backend/data/
+/backend/reference/
+/website/dist/static-data.json
+/website/dist/static-raw.json
+/website/dist/data-provenance.json
+# Local outputs and environments
+/backend/results/
+/validation/
+/.runtime/
+/.venv/
+/local-data*.zip
+__pycache__/
+*.py[cod]
+.DS_Store
+.env
+.env.*
+!.env.example
+*.log
+/website/validation/

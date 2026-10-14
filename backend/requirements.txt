@@ -1,0 +1,5 @@
+# Verified with CPython 3.12.7 on macOS arm64; CPU replay.
+numpy==2.3.5
+pandas==2.2.3
+scipy==1.17.0
+torch==2.7.0

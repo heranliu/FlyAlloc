@@ -1,0 +1,21 @@
+{
+  "path": "data/connectome/body-annotations-male-cns-v1.0-minconf-0.5.feather",
+  "url": "https://storage.googleapis.com/flyem-male-cns/v1.0/connectome-data/flat-connectome/body-annotations-male-cns-v1.0-minconf-0.5.feather",
+  "retrieved_start_utc": "2026-10-01T09:25:02.428602+00:00",
+  "retrieved_end_utc": "2026-10-01T09:25:02.829835+00:00",
+  "sha256": "2177e246113e4cfbf1e7772ec37c6da1955ff22e8063d0b1f833101f99a9a3b2",
+  "size_bytes": 14483314,
+  "response_headers": {
+    "content-type": "application/octet-stream",
+    "date": "Thu, 01 Oct 2026 09:25:02 GMT",
+    "last-modified": "Wed, 03 Jun 2026 13:54:38 GMT",
+    "etag": "\"50a7718770c57220f160ba4f431ab89e\"",
+    "x-goog-generation": "1780494878811468",
+    "x-goog-hash": "md5=UKdxh3DFciDxYLpPQxq4ng==",
+    "content-length": "14483314"
+  },
+  "dataset": "MaleCNS v1.0",
+  "license": "CC-BY-4.0",
+  "attribution": "FlyEM (HHMI Janelia), University of Cambridge, MRC Laboratory of Molecular Biology, Google Research",
+  "source_page": "https://male-cns.janelia.org/download/"
+}

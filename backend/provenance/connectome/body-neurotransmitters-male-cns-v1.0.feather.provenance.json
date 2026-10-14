@@ -1,0 +1,21 @@
+{
+  "path": "data/connectome/body-neurotransmitters-male-cns-v1.0.feather",
+  "url": "https://storage.googleapis.com/flyem-male-cns/v1.0/connectome-data/flat-connectome/body-neurotransmitters-male-cns-v1.0.feather",
+  "retrieved_start_utc": "2026-10-01T09:25:02.429148+00:00",
+  "retrieved_end_utc": "2026-10-01T09:25:03.206249+00:00",
+  "sha256": "95c9289220663abeb3409f3ad9e5a7f8a53f8093f5139d15502cd08da8879621",
+  "size_bytes": 43282834,
+  "response_headers": {
+    "content-type": "application/octet-stream",
+    "date": "Thu, 01 Oct 2026 09:25:02 GMT",
+    "last-modified": "Mon, 08 Jun 2026 05:01:39 GMT",
+    "etag": "\"3d842b12fe5c49eefade528d7dd24a1f\"",
+    "x-goog-generation": "1780894899156750",
+    "x-goog-hash": "md5=PYQrEv5cSe763lKNfdJKHw==",
+    "content-length": "43282834"
+  },
+  "dataset": "MaleCNS v1.0",
+  "license": "CC-BY-4.0",
+  "attribution": "FlyEM (HHMI Janelia), University of Cambridge, MRC Laboratory of Molecular Biology, Google Research",
+  "source_page": "https://male-cns.janelia.org/download/"
+}

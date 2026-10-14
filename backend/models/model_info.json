@@ -1,0 +1,15 @@
+{
+  "release": "FlyAlloc",
+  "family": "weekly_tail_defensive",
+  "epoch": 6,
+  "seeds": [
+    17,
+    29
+  ],
+  "train_end": "2024-12-31",
+  "parameters_updated_during_replay": false,
+  "cadence_sessions": 5,
+  "per_side_fee": 0.0005,
+  "terminal_liquidation": true,
+  "execution": "fractional adjusted-price proxy; not raw-share fills"
+}

@@ -1,0 +1,17 @@
+Drosophila FlyBody web asset
+
+Source: TuragaLab/flybody, developed by Google DeepMind and HHMI Janelia Research Campus
+Pinned commit: d015e9bfe441bd90ae431bac24c55cb74bdbce26
+Original Blender file: https://raw.githubusercontent.com/TuragaLab/flybody/d015e9bfe441bd90ae431bac24c55cb74bdbce26/flybody/fruitfly/assets/blender_model/drosophila.blend
+License: Apache License 2.0. Full text in flybody-LICENSE; include it in redistributed assets. No upstream NOTICE found in this revision.
+Publication: Vaxenburg et al., Whole-body physics simulation of fruit fly locomotion, Nature 643, 1312–1320 (2025). https://doi.org/10.1038/s41586-025-09029-4
+
+Modifications, 2026-10-01: Converted official .blend to glTF binary using installed Blender 4.3.2 with --disable-autoexec and use_scripts=False. No repository code or embedded scripts executed. Rebuilt PBR materials from original diffuse colors, removed image dependencies, reduced higher-density non-wing meshes using Blender Decimate ratio 0.48, retained wing topology and articulated hierarchy, prefixed geometry names mesh_. No motion clips baked; no biological-control claims.
+
+Integration: -X forward (toward head), +Y up, wings along +/-Z after glTF export. Use root translation and yaw around Y to choose stock stations. Bone names wing_left/right, coxa_T1_left/right through T3, femur_T1_left/right, tibia_T1_left/right etc. Geometry children have mesh_ prefix. Preserve bone base quaternion before applying small local oscillation. This depicts original public anatomy, while walking/choice motions are explanatory visualization.
+
+No external textures. Source .blend had an unused reference image path; the GLB contains no images/textures.
+
+CPU compatibility derivative, 2026-10-01: fly-cpu.json is a source-derived low-LOD asset with 7,457 triangles and no texture dependencies. Geometry converted to world-space glTF Y-up coordinates. Original wing-membrane topology retained; wing veins, eyes, body, and limbs polygon-reduced. Fine black head/thorax bristles omitted only in this LOD. Materials and anatomical component names retained. Each part contains positions, triangle indices, source RGBA, and original bone pivot for rigid motion. Original high-quality GLB unchanged. License remains Apache-2.0.
+
+Current packaged filenames: fly.glb (glTF body), fly-cpu.json (CPU derivative).
