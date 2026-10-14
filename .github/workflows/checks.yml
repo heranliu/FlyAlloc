@@ -17,5 +17,6 @@ jobs:
         with:
           node-version: '22'
       - run: python scripts/generate_demo.py --check
+      - run: python scripts/test_demo_check.py
       - run: npm test
       - run: python scripts/check_release.py --committed
